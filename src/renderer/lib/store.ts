@@ -143,9 +143,10 @@ export const store = createStore<State>({
         state.serveLink = null;
       }
     },
-    async buildMenu(state) {
+    async buildMenu(context) {
       const recents = await window.store.get("recents");
-      state.commit("updateRecentsFromData", recents);
+      context.commit("updateRecentsFromData", recents);
+      window.kit.buildMenu(context.state.project !== null);
     },
     async addRecent(state, dir: string) {
       let newRecents = await window.store.get("recents");
