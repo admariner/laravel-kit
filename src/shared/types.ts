@@ -9,9 +9,18 @@ type ConnectionOpenProjectResponse =
   | { success: false };
 
 type ConnectionFactoryOptions = {
-  type: "LocalFolder";
-  dir: string;
-};
+    type: "LocalFolder";
+    dir: string;
+    php: string;
+    docker:
+    | {
+        enabled: true;
+        workingDir: string;
+        containerName: string;
+        php: string;
+      }
+    | { enabled: false; };
+  };
 
 declare global {
   interface Window {

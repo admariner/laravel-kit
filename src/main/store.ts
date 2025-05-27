@@ -1,7 +1,27 @@
 import Store from "electron-store";
 
+type ProjectType = {
+  type: "LocalFolder";
+  dir: string;
+  php: string;
+  docker: {
+    enabled: boolean;
+    workingDir: string;
+    containerName: string;
+    php: string;
+  }
+} | {
+  type: "SSH",
+  host: string;
+  username: string;
+  password: string;
+  port: number;
+  dir: string;
+  php: string;
+}
+
 interface KitStore {
-  recents: string[];
+  recents: Array<ProjectType>;
   verbosity: number;
   env: string;
   editor: string;

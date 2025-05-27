@@ -8,6 +8,7 @@ async () => {
 interface Project {
   name: string;
   commands: [string];
+  php: string;
 }
 
 interface State {
@@ -85,7 +86,14 @@ export const store = createStore<State>({
           context.dispatch("closeProject");
         }
         context.state.opening = true;
-        const result = await window.kit.openProject({ type: "LocalFolder", dir: payload.dir });
+        const result = await window.kit.openProject({ 
+          type: "LocalFolder", 
+          dir: payload.dir,
+          php: context.state.php,
+          docker: {
+            enabled: false
+          }
+        });
         if (result.success) {
           context.state.dir = payload.dir;
           const parsedJson = JSON.parse(result.output);
